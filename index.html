@@ -1721,12 +1721,12 @@
 
   // PAGE LOADER
   const loader = document.getElementById('page-loader');
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      loader.classList.add('hidden');
-      document.body.style.overflow = '';
-    }, 1400);
-  });
+  function hideLoader() {
+    loader.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+  window.addEventListener('load', () => setTimeout(hideLoader, 1400));
+  setTimeout(hideLoader, 4000); // fallback: never stay stuck past 4s
   document.body.style.overflow = 'hidden';
 
   // CUSTOM CURSOR
