@@ -6,6 +6,9 @@
 <title>Sir Khaycee — Ecosystem Builder. Educator. Strategist.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://drive.google.com">
+<link rel="preconnect" href="https://lh3.googleusercontent.com">
+<link rel="preload" as="image" href="https://lh3.googleusercontent.com/d/1vzES4l3kXl7xNZ051YvvrwA7Nl9vEQjA=w1600">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -1026,37 +1029,39 @@
   }
 
   .photos-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 220px 220px;
-    gap: 3px;
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+
+  .photos-grid::-webkit-scrollbar { display: none; }
 
   .photo-cell {
     position: relative;
     overflow: hidden;
     background: var(--bg-card);
+    flex: 0 0 340px;
+    height: 420px;
+    border-radius: 4px;
   }
 
-  .photo-cell.photo-tall {
-    grid-row: span 2;
-  }
-
-  .photo-cell.photo-wide {
-    grid-column: span 2;
-  }
+  .photo-cell.photo-tall { flex: 0 0 280px; height: 420px; }
+  .photo-cell.photo-wide { flex: 0 0 480px; height: 420px; }
 
   .photo-cell img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    filter: grayscale(30%) brightness(0.8);
+    filter: grayscale(20%) brightness(0.85);
     transition: all 0.5s ease;
     display: block;
   }
 
   .photo-cell:hover img {
-    filter: grayscale(0%) brightness(0.95);
+    filter: grayscale(0%) brightness(1);
     transform: scale(1.03);
   }
 
@@ -1065,13 +1070,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    padding: 0.75rem 1rem;
-    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    padding: 1.25rem 1rem 1rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.82));
     font-family: 'Space Mono', monospace;
     font-size: 0.58rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.7);
+    color: rgba(255,255,255,0.8);
     opacity: 0;
     transform: translateY(4px);
     transition: all 0.3s ease;
@@ -1525,25 +1530,70 @@
     <p class="section-label reveal">Ecosystems & Protocols I've Worked With</p>
 
     <div class="logo-grid reveal">
-      <div class="logo-cell"><span class="logo-name">Bybit</span></div>
-      <div class="logo-cell"><span class="logo-name">Houdini Swap</span></div>
-      <div class="logo-cell"><span class="logo-name">Zero Gravity Labs</span></div>
-      <div class="logo-cell"><span class="logo-name">Solayer</span></div>
-      <div class="logo-cell"><span class="logo-name">Aleo</span></div>
-      <div class="logo-cell"><span class="logo-name">Momentum Finance</span></div>
-      <div class="logo-cell"><span class="logo-name">Grindery</span></div>
-      <div class="logo-cell"><span class="logo-name">Particle Network</span></div>
-      <div class="logo-cell"><span class="logo-name">Women In DeFi</span></div>
-      <div class="logo-cell"><span class="logo-name">Solus Agency</span></div>
-      <div class="logo-cell"><span class="logo-name">Nebula Agency</span></div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1cceYJdNskYXQ73qGz3LpwDo4lpFJrpdN&sz=w400" alt="Bybit" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Bybit</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1CPFbJnwxwrwRQNGcIGD12fQ5k8p2rbFk&sz=w400" alt="Houdini Swap" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Houdini Swap</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1Y4w8t91nft30hq5o_x8HEbH_ipQmmSf0&sz=w400" alt="Zero Gravity Labs" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Zero Gravity Labs</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1RVoePrQ7J3DmJ_ZzgjDyUx69-4ZLIUpO&sz=w400" alt="Solayer" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Solayer</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1_50IDdBFGsZKV1jdwghpO83U7X40bucn&sz=w400" alt="Aleo" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Aleo</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1At3m7nGjh3D-qUoZVHnfqmNGsek0k8ba&sz=w400" alt="Momentum Finance" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Momentum Finance</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1fA7pCt5TS2GG5_cNuA_pF9rF81AWrA9-&sz=w400" alt="Grindery" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Grindery</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=18VKadIhWQPJ3xIkl8eMh8K77dJJHZh2Z&sz=w400" alt="Particle Network" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Particle Network</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1bHKP8Vej7PAlgFZl_RjmN2KYe9r-VgTs&sz=w400" alt="Women In DeFi" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Women In DeFi</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1uj9tzL67MQSDlScHn-n2wNcSzz5Gz3Zp&sz=w400" alt="Solus Agency" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Solus Agency</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1F4WQGqZOrLIrOXfJ7Tf9V2O02Fd4NCMe&sz=w400" alt="Nebula Agency" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Nebula Agency</span>
+      </div>
     </div>
 
     <p class="partners-section-title reveal">Events & Conferences</p>
     <div class="logo-grid conferences reveal">
-      <div class="logo-cell"><span class="logo-name">Blockfest Africa</span></div>
-      <div class="logo-cell"><span class="logo-name">Web3 Lagos</span></div>
-      <div class="logo-cell"><span class="logo-name">NFTNG</span></div>
-      <div class="logo-cell"><span class="logo-name">Technova Summit</span></div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1dr1NLqDed-Sm0Kiay7qhGzDJ0ienz3Mz&sz=w400" alt="Blockfest Africa" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Blockfest Africa</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1Fyf6EOOigc_tuzhKjByRsR245_bGD-oA&sz=w400" alt="Web3 Lagos Conference" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Web3 Lagos</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1dWEjL--1NWHxaENxT23_gN42dFGjJK44&sz=w400" alt="NFTNG" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">NFTNG</span>
+      </div>
+      <div class="logo-cell">
+        <img class="logo-img" src="https://drive.google.com/thumbnail?id=1XK_Y5rBt5qDfjLpsr0uGYD9P5Royyo2m&sz=w400" alt="Technova Summit" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+        <span class="logo-name" style="display:none">Technova Summit</span>
+      </div>
     </div>
   </div>
 </section>
