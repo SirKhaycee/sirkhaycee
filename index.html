@@ -1519,6 +1519,135 @@
     .split-word-inner { transform: none !important; }
   }
 
+
+  /* NAV LINKS (desktop) */
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .nav-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.63rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 3px;
+    transition: color 0.25s ease;
+    white-space: nowrap;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1px;
+    background: var(--accent-blue);
+    transition: width 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .nav-link:hover { color: var(--accent-blue); }
+  .nav-link:hover::after { width: 100%; }
+
+  /* BURGER */
+  .burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .burger span {
+    display: block;
+    width: 100%;
+    height: 1.5px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  /* MOBILE MENU OVERLAY */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    background: #0D0D12;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-12px);
+    transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 1.5rem; right: 1.75rem;
+    font-size: 2rem;
+    line-height: 1;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+
+  .mobile-menu-close:hover { color: var(--text-primary); }
+
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .mobile-nav-link {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-nav-link:hover,
+  .mobile-nav-link:active { color: var(--accent-blue); }
+
+  .mobile-menu-cta { margin-top: 0.5rem; }
+
+  /* RESPONSIVE: hide desktop links/cta, show burger on mobile */
+  @media (max-width: 768px) {
+    .nav-links, nav .nav-cta { display: none !important; }
+    .burger { display: flex; }
+  }
+
+  /* smooth scroll */
+  html { scroll-behavior: smooth; }
+
 </style>
 </head>
 <body>
@@ -1531,12 +1660,36 @@
 <div id="scroll-progress"></div>
 
 <!-- NAV -->
-<nav id="navbar" style="justify-content: flex-start;">
-  <a href="#" class="nav-logo">
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">
     <img src="images/pfp.jpg" class="nav-avatar" alt="Sir Khaycee">
     Sir <span>Khaycee</span>
   </a>
+  <div class="nav-links">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#rebirth" class="nav-link">Rebirth</a>
+    <a href="#speaking" class="nav-link">Speaking</a>
+    <a href="#work" class="nav-link">Work With Me</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </div>
+  <a href="#work" class="nav-cta">Work With Me</a>
+  <button class="burger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="mobileClose" aria-label="Close menu">&times;</button>
+  <nav class="mobile-nav">
+    <a href="#about" class="mobile-nav-link">About</a>
+    <a href="#rebirth" class="mobile-nav-link">Rebirth</a>
+    <a href="#speaking" class="mobile-nav-link">Speaking</a>
+    <a href="#work" class="mobile-nav-link">Work With Me</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+  </nav>
+  <a href="#work" class="btn-primary mobile-menu-cta">Work With Me</a>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="hero">
@@ -1582,7 +1735,7 @@
 </section>
 
 <!-- IDENTITY -->
-<section class="identity">
+<section class="identity" id="about">
   <div class="section-inner">
     <p class="section-label">Who I Am</p>
     <div class="identity-grid">
@@ -1622,6 +1775,80 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- PARTNERS & LOGOS -->
+<section class="partners">
+  <div class="section-inner">
+    <p class="section-label reveal">Ecosystems & Protocols I've Worked With</p>
+  </div>
+
+  <!-- ECOSYSTEMS MARQUEE -->
+  <div class="marquee-wrap reveal" style="margin-top: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="marquee-track" id="track-ecosystems">
+      <!-- SET 1 -->
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1cceYJdNskYXQ73qGz3LpwDo4lpFJrpdN&sz=w400" alt="Bybit" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Bybit</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1CPFbJnwxwrwRQNGcIGD12fQ5k8p2rbFk&sz=w400" alt="Houdini Swap" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Houdini Swap</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1Y4w8t91nft30hq5o_x8HEbH_ipQmmSf0&sz=w400" alt="Zero Gravity Labs" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Zero Gravity Labs</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1RVoePrQ7J3DmJ_ZzgjDyUx69-4ZLIUpO&sz=w400" alt="Solayer" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Solayer</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1At3m7nGjh3D-qUoZVHnfqmNGsek0k8ba&sz=w400" alt="Momentum Finance" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Momentum Finance</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1fA7pCt5TS2GG5_cNuA_pF9rF81AWrA9-&sz=w400" alt="Grindery" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Grindery</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=18VKadIhWQPJ3xIkl8eMh8K77dJJHZh2Z&sz=w400" alt="Particle Network" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Particle Network</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1uj9tzL67MQSDlScHn-n2wNcSzz5Gz3Zp&sz=w400" alt="Solus Agency" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Solus Agency</span></div>
+      <div class="marquee-item"><img src="images/gravity.png" alt="Gravity" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Gravity</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1a9rl6bhMWt5nXylRXBg19QTwEMgJIILc&sz=w400" alt="Haust Network" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Haust Network</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1nSgTzOGWTK4QPJbF-mD9ktBinQG_2-gC&sz=w400" alt="Eterna" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Eterna</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1KIXWBabk1q4XFe9N7wO4mg78vLpstaUM&sz=w400" alt="Sahara AI" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Sahara AI</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1Q-iDSQziz2doOtDBuJmtOSexhBYpy8IL&sz=w400" alt="Lisk" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Lisk</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1g_aN9r_5GsE9NoD1jgIRbSMaHukuTnyM&sz=w400" alt="DeFi App" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">DeFi App</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1_-_b62rXozO6LUWf_v3G5U4u-7PVUrdW&sz=w400" alt="Aleo" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Aleo</span></div>
+      <!-- SET 2 (duplicate for seamless loop) -->
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1cceYJdNskYXQ73qGz3LpwDo4lpFJrpdN&sz=w400" alt="Bybit" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Bybit</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1CPFbJnwxwrwRQNGcIGD12fQ5k8p2rbFk&sz=w400" alt="Houdini Swap" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Houdini Swap</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1Y4w8t91nft30hq5o_x8HEbH_ipQmmSf0&sz=w400" alt="Zero Gravity Labs" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Zero Gravity Labs</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1RVoePrQ7J3DmJ_ZzgjDyUx69-4ZLIUpO&sz=w400" alt="Solayer" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Solayer</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1At3m7nGjh3D-qUoZVHnfqmNGsek0k8ba&sz=w400" alt="Momentum Finance" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Momentum Finance</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1fA7pCt5TS2GG5_cNuA_pF9rF81AWrA9-&sz=w400" alt="Grindery" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Grindery</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=18VKadIhWQPJ3xIkl8eMh8K77dJJHZh2Z&sz=w400" alt="Particle Network" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Particle Network</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1uj9tzL67MQSDlScHn-n2wNcSzz5Gz3Zp&sz=w400" alt="Solus Agency" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Solus Agency</span></div>
+      <div class="marquee-item"><img src="images/gravity.png" alt="Gravity" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Gravity</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1a9rl6bhMWt5nXylRXBg19QTwEMgJIILc&sz=w400" alt="Haust Network" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Haust Network</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1nSgTzOGWTK4QPJbF-mD9ktBinQG_2-gC&sz=w400" alt="Eterna" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Eterna</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1KIXWBabk1q4XFe9N7wO4mg78vLpstaUM&sz=w400" alt="Sahara AI" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Sahara AI</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1Q-iDSQziz2doOtDBuJmtOSexhBYpy8IL&sz=w400" alt="Lisk" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Lisk</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1g_aN9r_5GsE9NoD1jgIRbSMaHukuTnyM&sz=w400" alt="DeFi App" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">DeFi App</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1_-_b62rXozO6LUWf_v3G5U4u-7PVUrdW&sz=w400" alt="Aleo" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Aleo</span></div>
+    </div>
+  </div>
+
+  <div class="section-inner" style="margin-top: 4rem;">
+    <p class="section-label reveal">Events & Conferences</p>
+  </div>
+
+  <!-- CONFERENCES MARQUEE (slower, reverse direction) -->
+  <div class="marquee-wrap reveal" style="margin-top: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="marquee-track" style="animation-duration: 22s; animation-direction: reverse;">
+      <!-- SET 1 -->
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1dr1NLqDed-Sm0Kiay7qhGzDJ0ienz3Mz&sz=w400" alt="Blockfest Africa" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Blockfest Africa</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1dWEjL--1NWHxaENxT23_gN42dFGjJK44&sz=w400" alt="NFTNG" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">NFTNG</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1XK_Y5rBt5qDfjLpsr0uGYD9P5Royyo2m&sz=w400" alt="Technova Summit" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Technova Summit</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1IhGJ_8GSjXmP5CYDNk6BalciKvq0Iruk&sz=w400" alt="TFCN" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">TFCN</span></div>
+      <div class="marquee-item"><span class="logo-text">Web3 Lagos</span></div>
+      <div class="marquee-item"><span class="logo-text">FIFYA</span></div>
+      <div class="marquee-item"><img src="images/unchain-summer-logo.png" alt="Unchain Summer" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Unchain Summer</span></div>
+      <div class="marquee-item"><span class="logo-text">Generation NEXT</span></div>
+      <!-- SET 2 (duplicate for seamless loop) -->
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1dr1NLqDed-Sm0Kiay7qhGzDJ0ienz3Mz&sz=w400" alt="Blockfest Africa" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Blockfest Africa</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1dWEjL--1NWHxaENxT23_gN42dFGjJK44&sz=w400" alt="NFTNG" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">NFTNG</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1XK_Y5rBt5qDfjLpsr0uGYD9P5Royyo2m&sz=w400" alt="Technova Summit" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Technova Summit</span></div>
+      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1IhGJ_8GSjXmP5CYDNk6BalciKvq0Iruk&sz=w400" alt="TFCN" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">TFCN</span></div>
+      <div class="marquee-item"><span class="logo-text">Web3 Lagos</span></div>
+      <div class="marquee-item"><span class="logo-text">FIFYA</span></div>
+      <div class="marquee-item"><img src="images/unchain-summer-logo.png" alt="Unchain Summer" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Unchain Summer</span></div>
+      <div class="marquee-item"><span class="logo-text">Generation NEXT</span></div>
+    </div>
+  </div>
+
 </section>
 
 <!-- IMPACT STATS -->
@@ -1698,7 +1925,7 @@
 </section>
 
 <!-- REBIRTH ODYSSEY -->
-<section class="rebirth">
+<section class="rebirth" id="rebirth">
   <div class="section-inner">
     <p class="section-label reveal">Flagship Ecosystem</p>
     <div class="rebirth-inner">
@@ -1745,7 +1972,7 @@
 </section>
 
 <!-- SPEAKING -->
-<section class="speaking">
+<section class="speaking" id="speaking">
   <div class="section-inner">
     <p class="section-label reveal">On the Ground · On the Stage</p>
     <p class="speaking-intro reveal">
@@ -1847,82 +2074,10 @@
   </div>
 </section>
 
-<!-- PARTNERS & LOGOS -->
-<section class="partners">
-  <div class="section-inner">
-    <p class="section-label reveal">Ecosystems & Protocols I've Worked With</p>
-  </div>
 
-  <!-- ECOSYSTEMS MARQUEE -->
-  <div class="marquee-wrap reveal" style="margin-top: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-    <div class="marquee-track" id="track-ecosystems">
-      <!-- SET 1 -->
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1cceYJdNskYXQ73qGz3LpwDo4lpFJrpdN&sz=w400" alt="Bybit" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Bybit</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1CPFbJnwxwrwRQNGcIGD12fQ5k8p2rbFk&sz=w400" alt="Houdini Swap" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Houdini Swap</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1Y4w8t91nft30hq5o_x8HEbH_ipQmmSf0&sz=w400" alt="Zero Gravity Labs" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Zero Gravity Labs</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1RVoePrQ7J3DmJ_ZzgjDyUx69-4ZLIUpO&sz=w400" alt="Solayer" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Solayer</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1At3m7nGjh3D-qUoZVHnfqmNGsek0k8ba&sz=w400" alt="Momentum Finance" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Momentum Finance</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1fA7pCt5TS2GG5_cNuA_pF9rF81AWrA9-&sz=w400" alt="Grindery" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Grindery</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=18VKadIhWQPJ3xIkl8eMh8K77dJJHZh2Z&sz=w400" alt="Particle Network" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Particle Network</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1uj9tzL67MQSDlScHn-n2wNcSzz5Gz3Zp&sz=w400" alt="Solus Agency" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Solus Agency</span></div>
-      <div class="marquee-item"><img src="images/gravity.png" alt="Gravity" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Gravity</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1a9rl6bhMWt5nXylRXBg19QTwEMgJIILc&sz=w400" alt="Haust Network" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Haust Network</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1nSgTzOGWTK4QPJbF-mD9ktBinQG_2-gC&sz=w400" alt="Eterna" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Eterna</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1KIXWBabk1q4XFe9N7wO4mg78vLpstaUM&sz=w400" alt="Sahara AI" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Sahara AI</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1Q-iDSQziz2doOtDBuJmtOSexhBYpy8IL&sz=w400" alt="Lisk" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Lisk</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1g_aN9r_5GsE9NoD1jgIRbSMaHukuTnyM&sz=w400" alt="DeFi App" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">DeFi App</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1_-_b62rXozO6LUWf_v3G5U4u-7PVUrdW&sz=w400" alt="Aleo" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Aleo</span></div>
-      <!-- SET 2 (duplicate for seamless loop) -->
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1cceYJdNskYXQ73qGz3LpwDo4lpFJrpdN&sz=w400" alt="Bybit" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Bybit</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1CPFbJnwxwrwRQNGcIGD12fQ5k8p2rbFk&sz=w400" alt="Houdini Swap" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Houdini Swap</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1Y4w8t91nft30hq5o_x8HEbH_ipQmmSf0&sz=w400" alt="Zero Gravity Labs" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Zero Gravity Labs</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1RVoePrQ7J3DmJ_ZzgjDyUx69-4ZLIUpO&sz=w400" alt="Solayer" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Solayer</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1At3m7nGjh3D-qUoZVHnfqmNGsek0k8ba&sz=w400" alt="Momentum Finance" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Momentum Finance</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1fA7pCt5TS2GG5_cNuA_pF9rF81AWrA9-&sz=w400" alt="Grindery" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Grindery</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=18VKadIhWQPJ3xIkl8eMh8K77dJJHZh2Z&sz=w400" alt="Particle Network" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Particle Network</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1uj9tzL67MQSDlScHn-n2wNcSzz5Gz3Zp&sz=w400" alt="Solus Agency" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Solus Agency</span></div>
-      <div class="marquee-item"><img src="images/gravity.png" alt="Gravity" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Gravity</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1a9rl6bhMWt5nXylRXBg19QTwEMgJIILc&sz=w400" alt="Haust Network" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Haust Network</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1nSgTzOGWTK4QPJbF-mD9ktBinQG_2-gC&sz=w400" alt="Eterna" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Eterna</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1KIXWBabk1q4XFe9N7wO4mg78vLpstaUM&sz=w400" alt="Sahara AI" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Sahara AI</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1Q-iDSQziz2doOtDBuJmtOSexhBYpy8IL&sz=w400" alt="Lisk" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Lisk</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1g_aN9r_5GsE9NoD1jgIRbSMaHukuTnyM&sz=w400" alt="DeFi App" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">DeFi App</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1_-_b62rXozO6LUWf_v3G5U4u-7PVUrdW&sz=w400" alt="Aleo" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Aleo</span></div>
-    </div>
-  </div>
-
-  <div class="section-inner" style="margin-top: 4rem;">
-    <p class="section-label reveal">Events & Conferences</p>
-  </div>
-
-  <!-- CONFERENCES MARQUEE (slower, reverse direction) -->
-  <div class="marquee-wrap reveal" style="margin-top: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-    <div class="marquee-track" style="animation-duration: 22s; animation-direction: reverse;">
-      <!-- SET 1 -->
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1dr1NLqDed-Sm0Kiay7qhGzDJ0ienz3Mz&sz=w400" alt="Blockfest Africa" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Blockfest Africa</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1dWEjL--1NWHxaENxT23_gN42dFGjJK44&sz=w400" alt="NFTNG" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">NFTNG</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1XK_Y5rBt5qDfjLpsr0uGYD9P5Royyo2m&sz=w400" alt="Technova Summit" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Technova Summit</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1IhGJ_8GSjXmP5CYDNk6BalciKvq0Iruk&sz=w400" alt="TFCN" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">TFCN</span></div>
-      <div class="marquee-item"><span class="logo-text">Web3 Lagos</span></div>
-      <div class="marquee-item"><span class="logo-text">FIFYA</span></div>
-      <div class="marquee-item"><img src="images/unchain-summer-logo.png" alt="Unchain Summer" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Unchain Summer</span></div>
-      <div class="marquee-item"><span class="logo-text">Generation NEXT</span></div>
-      <!-- SET 2 (duplicate for seamless loop) -->
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1dr1NLqDed-Sm0Kiay7qhGzDJ0ienz3Mz&sz=w400" alt="Blockfest Africa" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Blockfest Africa</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1dWEjL--1NWHxaENxT23_gN42dFGjJK44&sz=w400" alt="NFTNG" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">NFTNG</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1XK_Y5rBt5qDfjLpsr0uGYD9P5Royyo2m&sz=w400" alt="Technova Summit" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Technova Summit</span></div>
-      <div class="marquee-item"><img src="https://drive.google.com/thumbnail?id=1IhGJ_8GSjXmP5CYDNk6BalciKvq0Iruk&sz=w400" alt="TFCN" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">TFCN</span></div>
-      <div class="marquee-item"><span class="logo-text">Web3 Lagos</span></div>
-      <div class="marquee-item"><span class="logo-text">FIFYA</span></div>
-      <div class="marquee-item"><img src="images/unchain-summer-logo.png" alt="Unchain Summer" onerror="this.style.display='none';this.parentElement.querySelector('.logo-text').style.display='block'"><span class="logo-text" style="display:none">Unchain Summer</span></div>
-      <div class="marquee-item"><span class="logo-text">Generation NEXT</span></div>
-    </div>
-  </div>
-
-</section>
 
 <!-- WORK WITH ME -->
-<section class="work-with-me">
+<section class="work-with-me" id="work">
   <div class="section-inner">
     <p class="section-label reveal">Work With Me</p>
     <div class="work-grid">
@@ -1985,7 +2140,7 @@
 </section>
 
 <!-- FOOTER -->
-<footer>
+<footer id="contact">
   <div class="footer-inner">
     <div class="footer-left">
       <a href="#" class="footer-logo-link">
@@ -2234,6 +2389,42 @@
       });
       btn.appendChild(rip);
       rip.addEventListener('animationend', () => rip.remove());
+    });
+  });
+
+
+  // ── Mobile burger menu ──────────────────────────────────────────────────────
+  const _burger    = document.querySelector('.burger');
+  const _mMenu     = document.getElementById('mobileMenu');
+  const _mClose    = document.getElementById('mobileClose');
+
+  function _openMenu() {
+    _mMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function _closeMenu() {
+    _mMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  if (_burger) _burger.addEventListener('click', _openMenu);
+  if (_mClose) _mClose.addEventListener('click', _closeMenu);
+
+  document.querySelectorAll('.mobile-nav-link, .mobile-menu-cta').forEach(link => {
+    link.addEventListener('click', _closeMenu);
+  });
+
+  // ── Smooth scroll with fixed-nav offset ─────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
+      if (!target) return;
+      e.preventDefault();
+      const navH = document.getElementById('navbar').offsetHeight + 16;
+      const top  = target.getBoundingClientRect().top + window.scrollY - navH;
+      window.scrollTo({ top, behavior: 'smooth' });
     });
   });
 
