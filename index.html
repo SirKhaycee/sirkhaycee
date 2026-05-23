@@ -1585,75 +1585,140 @@
     position: fixed;
     inset: 0;
     z-index: 9000;
-    background: #0D0D12;
+    background: #0A0A10;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 0 8rem;
+    padding: 0 2.5rem;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(-12px);
-    transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1), transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    clip-path: inset(0 0 100% 0);
+    transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1),
+                clip-path 0.5s cubic-bezier(0.16,1,0.3,1);
   }
 
   .mobile-menu.open {
     opacity: 1;
     pointer-events: all;
-    transform: translateY(0);
+    clip-path: inset(0 0 0% 0);
   }
+
+  .mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    flex-shrink: 0;
+  }
+
+  .mobile-menu-brand { pointer-events: all; }
 
   .mobile-menu-close {
-    position: absolute;
-    top: 1.4rem; right: 1.5rem;
-    font-size: 1.8rem;
-    line-height: 1;
+    position: relative;
+    width: 36px; height: 36px;
     background: none;
     border: none;
-    color: var(--text-secondary);
-    transition: color 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 0;
+    flex-shrink: 0;
   }
 
-  .mobile-menu-close:hover { color: var(--text-primary); }
+  .mobile-menu-close span {
+    display: block;
+    width: 20px; height: 1.5px;
+    background: var(--text-secondary);
+    border-radius: 2px;
+    transition: background 0.2s;
+  }
+
+  .mobile-menu-close span:first-child {
+    transform: rotate(45deg) translate(0px, 0.75px);
+  }
+  .mobile-menu-close span:last-child {
+    transform: rotate(-45deg) translate(0px, -0.75px);
+  }
+
+  .mobile-menu-close:hover span { background: var(--text-primary); }
 
   .mobile-nav {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
+    justify-content: center;
+    flex: 1;
+    gap: 0;
+    padding: 1.5rem 0;
   }
 
   .mobile-nav-link {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(1.25rem, 6.5vw, 1.7rem);
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
+    font-size: clamp(1.6rem, 8vw, 2.2rem);
+    font-weight: 600;
+    color: rgba(255,255,255,0.35);
     text-decoration: none;
-    white-space: nowrap;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
-    width: 100%;
-    text-align: center;
-    transition: color 0.2s ease;
+    padding: 0.8rem 0;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: color 0.25s ease;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: color 0.25s ease, opacity 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s cubic-bezier(0.16,1,0.3,1);
   }
 
-  .mobile-nav-link:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+  .mobile-nav-link:last-child { border-bottom: none; }
+
+  .mobile-nav-link em {
+    font-family: 'Space Mono', monospace;
+    font-style: normal;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--accent-blue);
+    opacity: 0.6;
+    flex-shrink: 0;
+    margin-bottom: 2px;
+  }
 
   .mobile-nav-link:hover,
-  .mobile-nav-link:active { color: var(--accent-blue); }
+  .mobile-nav-link:active { color: rgba(255,255,255,0.92); }
 
-  /* CTA pinned to bottom of overlay — never overlaps links */
-  .mobile-menu-cta {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 2rem;
-    right: 2rem;
-    width: auto;
-    text-align: center;
-    justify-content: center;
+  .mobile-nav-link:hover em,
+  .mobile-nav-link:active em { opacity: 1; }
+
+  /* Stagger links in when menu opens */
+  .mobile-menu.open .mobile-nav-link {
+    opacity: 1;
+    transform: translateY(0);
   }
+  .mobile-menu.open .mobile-nav-link:nth-child(1) { transition-delay: 0.08s; }
+  .mobile-menu.open .mobile-nav-link:nth-child(2) { transition-delay: 0.13s; }
+  .mobile-menu.open .mobile-nav-link:nth-child(3) { transition-delay: 0.18s; }
+  .mobile-menu.open .mobile-nav-link:nth-child(4) { transition-delay: 0.23s; }
+  .mobile-menu.open .mobile-nav-link:nth-child(5) { transition-delay: 0.28s; }
+
+  .mobile-menu-footer {
+    padding: 1.5rem 0 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    flex-shrink: 0;
+  }
+
+  .mobile-menu-cta {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 0.2s, letter-spacing 0.3s;
+  }
+
+  .mobile-menu-cta:hover { color: #fff; letter-spacing: 0.16em; }
 
   /* RESPONSIVE: hide desktop links/cta, show burger on mobile */
   @media (max-width: 768px) {
@@ -1696,15 +1761,25 @@
 
 <!-- MOBILE MENU OVERLAY -->
 <div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-menu-close" id="mobileClose" aria-label="Close menu">&times;</button>
+  <div class="mobile-menu-header">
+    <a href="#hero" class="nav-logo mobile-menu-brand" onclick="document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow=''">
+      <img src="images/pfp.jpg" class="nav-avatar" alt="Sir Khaycee">
+      Sir <span>Khaycee</span>
+    </a>
+    <button class="mobile-menu-close" id="mobileClose" aria-label="Close menu">
+      <span></span><span></span>
+    </button>
+  </div>
   <nav class="mobile-nav">
-    <a href="#about" class="mobile-nav-link">Who I Am</a>
-    <a href="#rebirth" class="mobile-nav-link">Rebirth Odyssey</a>
-    <a href="#speaking" class="mobile-nav-link">Speaking</a>
-    <a href="#work" class="mobile-nav-link">Work With Me</a>
-    <a href="#contact" class="mobile-nav-link">Contact</a>
+    <a href="#about" class="mobile-nav-link"><em>01</em>Who I Am</a>
+    <a href="#rebirth" class="mobile-nav-link"><em>02</em>Rebirth Odyssey</a>
+    <a href="#speaking" class="mobile-nav-link"><em>03</em>Speaking</a>
+    <a href="#work" class="mobile-nav-link"><em>04</em>Work With Me</a>
+    <a href="#contact" class="mobile-nav-link"><em>05</em>Contact</a>
   </nav>
-  <a href="#work" class="btn-primary mobile-menu-cta">Work With Me</a>
+  <div class="mobile-menu-footer">
+    <a href="#work" class="mobile-menu-cta">Work With Me →</a>
+  </div>
 </div>
 
 <!-- HERO -->
