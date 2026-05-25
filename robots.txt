@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sirkhaycee.vercel.app/sitemap.xml
+Sitemap: https://sirkhaycee.com/sitemap.xml
