@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ridima × Sir Khaycee — KOL Campaign</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#06060E;--surface:#0D0D1A;--surface-2:#121228;
+  --fg:#ECEDFF;--fg-sub:rgba(236,237,255,.42);
+  --ridima:#7B5CF7;--ridima-bg:rgba(123,92,247,.08);--ridima-glow:rgba(123,92,247,.25);
+  --green:#10B981;--green-bg:rgba(16,185,129,.08);
+  --orange:#F59E0B;--red:#EF4444;
+  --border:rgba(255,255,255,.07);--border-s:rgba(255,255,255,.12);
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));}
+a{color:inherit;text-decoration:none}
+
+.wrap{max-width:760px;margin:0 auto;padding-block:2rem 5rem}
+
+/* ── HERO ── */
+.hero{
+  background:linear-gradient(135deg,rgba(123,92,247,.12) 0%,rgba(6,6,14,0) 60%);
+  border:1px solid var(--border-s);border-radius:16px;
+  padding:2rem 1.75rem 1.75rem;margin-bottom:1.5rem;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-40px;right:-40px;
+  width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(123,92,247,.18) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-top{display:flex;align-items:center;gap:.875rem;margin-bottom:1.25rem;flex-wrap:wrap}
+.r-mark{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--ridima);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;color:#FFF;
+  flex-shrink:0;box-shadow:0 4px 20px var(--ridima-glow);
+}
+.hero-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:-.025em}
+.hero-title .ridima{color:var(--ridima)}
+.hero-sub{font-size:.8125rem;color:var(--fg-sub);display:flex;align-items:center;gap:.625rem;flex-wrap:wrap;margin-top:.25rem}
+.hero-sub .pill{
+  background:var(--surface-2);border:1px solid var(--border-s);
+  border-radius:20px;padding:.2rem .625rem;font-size:.6875rem;font-weight:600;color:var(--fg-sub);
+}
+.hero-sub .pill.active{background:var(--ridima-bg);border-color:rgba(123,92,247,.3);color:var(--ridima)}
+
+/* progress */
+.prog-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
+.prog-label{font-family:'Syne',sans-serif;font-size:.8125rem;font-weight:700}
+.prog-frac{font-family:'Space Mono',monospace;font-size:.8125rem;font-weight:700;color:var(--ridima)}
+.track{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
+.fill{height:100%;border-radius:3px;background:var(--ridima);box-shadow:0 0 10px var(--ridima-glow);
+  transition:width .6s cubic-bezier(.16,1,.3,1)}
+.fill.done{background:var(--green);box-shadow:0 0 10px rgba(16,185,129,.3)}
+
+/* ── ALERT ── */
+.alert{
+  display:flex;align-items:center;gap:.625rem;
+  padding:.75rem 1rem;border-radius:10px;margin-bottom:1.25rem;
+  font-size:.8125rem;font-weight:600;
+}
+.alert.warn{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:var(--red)}
+.alert.ok  {background:var(--green-bg);border:1px solid rgba(16,185,129,.2);color:var(--green)}
+
+/* ── GRID ── */
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:.625rem;margin-bottom:1.5rem}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.625rem;margin-bottom:1.5rem}
+@media(max-width:540px){.grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.grid-2{grid-template-columns:1fr}}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
+.card-label{font-size:.6875rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-sub);margin-bottom:.35rem}
+.card-val{font-family:'Space Mono',monospace;font-size:1.25rem;font-weight:700;line-height:1}
+.card-val.c-ridima{color:var(--ridima)}
+.card-val.c-green {color:var(--green)}
+.card-val.c-orange{color:var(--orange)}
+.card-val.c-red   {color:var(--red)}
+.card-sub{font-size:.75rem;color:var(--fg-sub);margin-top:.25rem}
+
+/* referral section */
+.section-head{font-family:'Syne',sans-serif;font-size:.875rem;font-weight:700;margin-bottom:.75rem}
+
+.ref-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:1.125rem 1.25rem;
+}
+.ref-code-row{display:flex;align-items:center;gap:.625rem;margin-bottom:1rem}
+.ref-code{
+  font-family:'Space Mono',monospace;font-size:1rem;font-weight:700;
+  color:var(--ridima);
+  background:var(--ridima-bg);border:1px solid rgba(123,92,247,.2);
+  border-radius:8px;padding:.4rem .875rem;
+}
+.ref-label{font-size:.75rem;color:var(--fg-sub)}
+.ref-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.ref-stat{text-align:center;padding:.625rem .5rem;background:var(--surface-2);border-radius:8px}
+.ref-stat-num{font-family:'Space Mono',monospace;font-size:1.125rem;font-weight:700;line-height:1}
+.ref-stat-num.c-green{color:var(--green)}
+.ref-stat-lbl{font-size:.6875rem;color:var(--fg-sub);margin-top:.2rem}
+
+/* ── POSTS ── */
+.posts-stack{display:flex;flex-direction:column;gap:.75rem}
+
+.post-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;
+}
+.post-card-head{
+  padding:.875rem 1rem;
+  display:flex;align-items:center;gap:.75rem;
+  border-bottom:1px solid var(--border);
+}
+.post-num-badge{
+  font-family:'Space Mono',monospace;font-size:.75rem;font-weight:700;
+  color:var(--ridima);background:var(--ridima-bg);
+  border:1px solid rgba(123,92,247,.2);border-radius:6px;
+  padding:.2rem .5rem;flex-shrink:0;
+}
+.post-link{
+  flex:1;min-width:0;
+  font-size:.875rem;font-weight:500;color:var(--fg);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.post-link:hover{color:var(--ridima)}
+.post-date{font-family:'Space Mono',monospace;font-size:.6875rem;color:var(--fg-sub);flex-shrink:0}
+.post-live{font-size:.6875rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  background:var(--green-bg);color:var(--green);border-radius:4px;padding:.15rem .4rem;flex-shrink:0}
+.post-pending{font-size:.6875rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(245,158,11,.08);color:var(--orange);border-radius:4px;padding:.15rem .4rem;flex-shrink:0}
+
+.post-metrics{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  padding:.75rem 1rem;gap:.5rem;
+}
+@media(max-width:460px){.post-metrics{grid-template-columns:repeat(3,1fr)}}
+.metric{text-align:center}
+.metric-num{font-family:'Space Mono',monospace;font-size:.9375rem;font-weight:700;line-height:1}
+.metric-num.c-ridima{color:var(--ridima)}
+.metric-lbl{font-size:.625rem;text-transform:uppercase;letter-spacing:.07em;color:var(--fg-sub);margin-top:.2rem}
+.metric-dash{color:var(--border-s);font-size:1.125rem}
+
+/* video metrics strip */
+.video-strip{
+  background:var(--surface-2);border-top:1px solid var(--border);
+  padding:.5rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+}
+.vid-label{font-size:.6875rem;font-weight:600;color:var(--fg-sub);text-transform:uppercase;letter-spacing:.07em;margin-right:.25rem}
+.vid-stat{font-family:'Space Mono',monospace;font-size:.8125rem;font-weight:700;color:var(--fg)}
+.vid-stat span{font-size:.6875rem;color:var(--fg-sub);font-family:'Inter',sans-serif;font-weight:400;margin-left:.25rem}
+
+/* pending slot */
+.pend-slot{
+  background:transparent;border:1px dashed var(--border-s);border-radius:12px;
+  padding:.875rem 1rem;display:flex;align-items:center;gap:.75rem;
+}
+.pend-num{font-family:'Space Mono',monospace;font-size:.75rem;font-weight:700;
+  color:var(--fg-sub);min-width:36px}
+.pend-text{font-size:.8125rem;color:var(--fg-sub)}
+
+/* totals */
+.totals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.625rem;margin-bottom:1.5rem}
+@media(max-width:420px){.totals-grid{grid-template-columns:1fr 1fr}}
+
+/* footer */
+.page-footer{
+  margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;
+}
+.footer-left{font-size:.75rem;color:var(--fg-sub)}
+.footer-right{font-family:'Space Mono',monospace;font-size:.6875rem;color:var(--fg-sub)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ── DATA (edit this to update) ── -->
+<script>
+const C = {
+  startDate: "2026-10-22",
+  endDate:   "2026-11-21",
+  total:     10,
+  payment:   "$1,500 USD",
+  referral: {
+    code:         "sirkhaycee",
+    earnings:     "₦4,500.00",
+    totalRefs:    101,
+    eligibleRefs: 3,
+  },
+  posts: [
+    {
+      num:    1,
+      date:   "Nov 7, 2026",
+      url:    "https://x.com/sirkhaycee/status/2119089995000823847",
+      impressions:   2946,
+      engagements:    36,
+      likes:          22,
+      retweets:        3,
+      replies:         3,
+      profileVisits:   6,
+    },
+    {
+      num:    2,
+      date:   "Nov 16, 2026",
+      url:    "https://x.com/sirkhaycee/status/2122331500607680744",
+      impressions:   3755,
+      engagements:    99,
+      likes:          49,
+      retweets:        5,
+      replies:        12,
+      profileVisits:  24,
+      video: { views: 501, uniqueViews: 334 },
+    },
+    {
+      num:    3,
+      date:   "Nov 17, 2026",
+      url:    "https://x.com/sirkhaycee/status/2122701305449701601",
+    },
+  ],
+  updatedAt: "Nov 17, 2026",
+};
+</script>
+
+<div class="wrap" id="root"></div>
+
+<script>
+(function(){
+  const root   = document.getElementById('root');
+  const posts  = C.posts;
+  const done   = posts.length;
+  const pct    = Math.round((done / C.total) * 100);
+  const remaining = C.total - done;
+
+  const deadline = new Date(C.endDate + 'T23:59:59');
+  const now      = new Date();
+  const daysLeft = Math.max(0, Math.ceil((deadline - now) / 86400000));
+
+  const totalImp = posts.reduce((s,p) => s + (p.impressions||0), 0);
+  const totalEng = posts.reduce((s,p) => s + (p.engagements||0), 0);
+  const totalVid = posts.reduce((s,p) => s + (p.video ? p.video.views : 0), 0);
+
+  const fmt = n => n == null ? '—' : n.toLocaleString();
+  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  let html = '';
+
+  /* Hero */
+  html += `
+  <div class="hero">
+    <div class="hero-top">
+      <div class="r-mark">R</div>
+      <div>
+        <div class="hero-title"><span class="ridima">Ridima</span> × Sir Khaycee</div>
+        <div class="hero-sub">
+          <span>KOL Engagement · Month 1</span>
+          <span class="pill active">Active</span>
+          <span class="pill">${C.startDate} → ${C.endDate}</span>
+        </div>
+      </div>
+    </div>
+    <div class="prog-row">
+      <span class="prog-label">Deliverables</span>
+      <span class="prog-frac">${done} / ${C.total} posts</span>
+    </div>
+    <div class="track"><div class="fill${done>=C.total?' done':''}" style="width:${pct}%"></div></div>
+  </div>`;
+
+  /* Alert */
+  if (done < C.total) {
+    const cls = daysLeft <= 3 ? 'warn' : 'warn';
+    html += `<div class="alert ${cls}">⚠️ ${remaining} post${remaining>1?'s':''} still needed · ${daysLeft} day${daysLeft!==1?'s':''} until deadline (Nov 21)</div>`;
+  } else {
+    html += `<div class="alert ok">✅ All ${C.total} posts delivered — contract complete!</div>`;
+  }
+
+  /* Campaign stats */
+  html += `<div class="grid-4">
+    <div class="card"><div class="card-label">Posts Done</div><div class="card-val c-ridima">${done}</div></div>
+    <div class="card"><div class="card-label">Remaining</div><div class="card-val${remaining>0?' c-orange':' c-green'}">${remaining}</div></div>
+    <div class="card"><div class="card-label">Days Left</div><div class="card-val${daysLeft<=3?' c-red':daysLeft<=7?' c-orange':' c-ridima'}">${daysLeft}</div></div>
+    <div class="card"><div class="card-label">Payment</div><div class="card-val c-green" style="font-size:1rem">${C.payment}</div></div>
+  </div>`;
+
+  /* Referral */
+  html += `<div class="section-head">Referral Performance</div>
+  <div class="ref-card" style="margin-bottom:1.5rem">
+    <div class="ref-code-row">
+      <div class="ref-code">${esc(C.referral.code)}</div>
+      <div class="ref-label">Referral code</div>
+    </div>
+    <div class="ref-stats">
+      <div class="ref-stat"><div class="ref-stat-num c-green">${esc(C.referral.earnings)}</div><div class="ref-stat-lbl">Earned</div></div>
+      <div class="ref-stat"><div class="ref-stat-num">${C.referral.totalRefs}</div><div class="ref-stat-lbl">Total Referrals</div></div>
+      <div class="ref-stat"><div class="ref-stat-num">${C.referral.eligibleRefs}</div><div class="ref-stat-lbl">Eligible</div></div>
+    </div>
+  </div>`;
+
+  /* Posts */
+  html += `<div class="section-head">Submitted Posts</div><div class="posts-stack">`;
+  posts.forEach(p => {
+    const hasStats = p.impressions != null;
+    const shortUrl = p.url.replace('https://x.com/sirkhaycee/status/','x.com/sirkhaycee/');
+    html += `<div class="post-card">
+      <div class="post-card-head">
+        <div class="post-num-badge">#${String(p.num).padStart(2,'0')}</div>
+        <a class="post-link" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(shortUrl)}</a>
+        <div class="post-date">${esc(p.date)}</div>
+        <div class="${hasStats?'post-live':'post-pending'}">${hasStats?'Live':'Stats pending'}</div>
+      </div>`;
+    if (hasStats) {
+      html += `<div class="post-metrics">
+        <div class="metric"><div class="metric-num c-ridima">${fmt(p.impressions)}</div><div class="metric-lbl">Impressions</div></div>
+        <div class="metric"><div class="metric-num">${fmt(p.engagements)}</div><div class="metric-lbl">Engagements</div></div>
+        <div class="metric"><div class="metric-num">${fmt(p.likes)}</div><div class="metric-lbl">Likes</div></div>
+        <div class="metric"><div class="metric-num">${fmt(p.retweets)}</div><div class="metric-lbl">Retweets</div></div>
+        <div class="metric"><div class="metric-num">${fmt(p.replies)}</div><div class="metric-lbl">Replies</div></div>
+      </div>`;
+      if (p.video) {
+        html += `<div class="video-strip">
+          <span class="vid-label">Video</span>
+          <span class="vid-stat">${fmt(p.video.views)}<span>views</span></span>
+          <span class="vid-stat">${fmt(p.video.uniqueViews)}<span>unique views</span></span>
+        </div>`;
+      }
+    } else {
+      html += `<div class="post-metrics" style="opacity:.4;pointer-events:none">
+        <div class="metric"><div class="metric-num">—</div><div class="metric-lbl">Impressions</div></div>
+        <div class="metric"><div class="metric-num">—</div><div class="metric-lbl">Engagements</div></div>
+        <div class="metric"><div class="metric-num">—</div><div class="metric-lbl">Likes</div></div>
+        <div class="metric"><div class="metric-num">—</div><div class="metric-lbl">Retweets</div></div>
+        <div class="metric"><div class="metric-num">—</div><div class="metric-lbl">Replies</div></div>
+      </div>`;
+    }
+    html += `</div>`;
+  });
+  for (let i = done; i < C.total; i++) {
+    html += `<div class="pend-slot"><div class="pend-num">#${String(i+1).padStart(2,'0')}</div><div class="pend-text">Pending</div></div>`;
+  }
+  html += `</div>`;
+
+  /* Totals */
+  if (totalImp > 0) {
+    html += `<div style="margin-top:1.5rem">
+    <div class="section-head">Campaign Totals</div>
+    <div class="totals-grid">
+      <div class="card"><div class="card-label">Total Reach</div><div class="card-val c-ridima">${fmt(totalImp)}</div><div class="card-sub">impressions</div></div>
+      <div class="card"><div class="card-label">Engagements</div><div class="card-val">${fmt(totalEng)}</div><div class="card-sub">all posts</div></div>
+      <div class="card"><div class="card-label">Video Views</div><div class="card-val">${totalVid>0?fmt(totalVid):'—'}</div><div class="card-sub">${totalVid>0?'total views':'—'}</div></div>
+    </div></div>`;
+  }
+
+  /* Footer */
+  html += `<div class="page-footer">
+    <div class="footer-left">RDM Technologies Ltd · Ridima Brand · @sirkhaycee · Month 1</div>
+    <div class="footer-right">Updated ${esc(C.updatedAt)}</div>
+  </div>`;
+
+  root.innerHTML = html;
+})();
+</script>
+</div>
+</body>
+</html>
