@@ -172,6 +172,26 @@ a{color:inherit;text-decoration:none}
 .totals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.625rem;margin-bottom:1.5rem}
 @media(max-width:420px){.totals-grid{grid-template-columns:1fr 1fr}}
 
+/* volume */
+.vol-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.125rem 1.25rem;margin-bottom:1.5rem}
+.vol-current-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
+.vol-current-num{font-family:'Space Mono',monospace;font-size:1.5rem;font-weight:700;line-height:1}
+.vol-current-num.pending{color:var(--fg-sub);font-size:1rem}
+.vol-current-num.c-ridima{color:var(--ridima)}
+.vol-badge{font-size:.6875rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+  background:rgba(245,158,11,.08);color:var(--orange);border-radius:4px;padding:.2rem .5rem}
+.vol-target{margin-bottom:.875rem}
+.vol-target:last-child{margin-bottom:0}
+.vol-target-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4rem}
+.vol-target-label{font-size:.6875rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--fg-sub)}
+.vol-target-amt{font-family:'Space Mono',monospace;font-size:.8125rem;font-weight:700}
+.vol-target-amt.soft{color:var(--orange)}
+.vol-target-amt.hard{color:var(--green)}
+.vol-pct{font-size:.6875rem;color:var(--fg-sub);margin-left:.375rem}
+.track.thin{height:5px}
+.fill.soft{background:var(--orange);box-shadow:none}
+.fill.hard{background:var(--green);box-shadow:0 0 8px rgba(16,185,129,.25)}
+
 /* footer */
 .page-footer{
   margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--border);
@@ -195,7 +215,12 @@ const C = {
     code:         "sirkhaycee",
     earnings:     "₦4,500.00",
     totalRefs:    101,
-    eligibleRefs: 3,
+    eligibleRefs: 3,   // traded above $100
+  },
+  volume: {
+    current:    null,        // to be updated — data from RDM team
+    softTarget: 10000000,    // ₦10,000,000
+    hardTarget: 20000000,    // ₦20,000,000
   },
   posts: [
     {
@@ -301,7 +326,7 @@ const C = {
     <div class="ref-stats">
       <div class="ref-stat"><div class="ref-stat-num c-green">${esc(C.referral.earnings)}</div><div class="ref-stat-lbl">Earned</div></div>
       <div class="ref-stat"><div class="ref-stat-num">${C.referral.totalRefs}</div><div class="ref-stat-lbl">Total Referrals</div></div>
-      <div class="ref-stat"><div class="ref-stat-num">${C.referral.eligibleRefs}</div><div class="ref-stat-lbl">Eligible</div></div>
+      <div class="ref-stat"><div class="ref-stat-num">${C.referral.eligibleRefs}</div><div class="ref-stat-lbl">Eligible <span style="font-size:.6rem;opacity:.7">&gt;$100 traded</span></div></div>
     </div>
   </div>`;
 
@@ -347,6 +372,41 @@ const C = {
     html += `<div class="pend-slot"><div class="pend-num">#${String(i+1).padStart(2,'0')}</div><div class="pend-text">Pending</div></div>`;
   }
   html += `</div>`;
+
+  /* Volume */
+  {
+    const v = C.volume;
+    const cur = v.current;
+    const hasCur = cur != null && cur > 0;
+    const softPct = hasCur ? Math.min(100, Math.round((cur / v.softTarget) * 100)) : 0;
+    const hardPct = hasCur ? Math.min(100, Math.round((cur / v.hardTarget) * 100)) : 0;
+    const fmtNaira = n => '₦' + n.toLocaleString('en-NG');
+
+    html += `<div class="section-head">Trading Volume Generated</div>
+    <div class="vol-card">
+      <div class="vol-current-row">
+        <div>
+          <div class="card-label" style="margin-bottom:.35rem">Current Volume</div>
+          <div class="vol-current-num ${hasCur ? 'c-ridima' : 'pending'}">${hasCur ? fmtNaira(cur) : 'Awaiting data from RDM'}</div>
+        </div>
+        ${!hasCur ? `<div class="vol-badge">Pending</div>` : ''}
+      </div>
+      <div class="vol-target">
+        <div class="vol-target-row">
+          <span class="vol-target-label">Soft Target</span>
+          <span><span class="vol-target-amt soft">${fmtNaira(v.softTarget)}</span><span class="vol-pct">${softPct}%</span></span>
+        </div>
+        <div class="track thin"><div class="fill soft" style="width:${softPct}%"></div></div>
+      </div>
+      <div class="vol-target" style="margin-top:.75rem">
+        <div class="vol-target-row">
+          <span class="vol-target-label">Hard Target</span>
+          <span><span class="vol-target-amt hard">${fmtNaira(v.hardTarget)}</span><span class="vol-pct">${hardPct}%</span></span>
+        </div>
+        <div class="track thin"><div class="fill hard" style="width:${hardPct}%"></div></div>
+      </div>
+    </div>`;
+  }
 
   /* Totals */
   if (totalImp > 0) {
