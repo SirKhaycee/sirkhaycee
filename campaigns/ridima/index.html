@@ -9,208 +9,222 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap">
 <style>
 :root{
-  --bg:#06060E;--surface:#0D0D1A;--surface-2:#121228;
-  --fg:#ECEDFF;--fg-sub:rgba(236,237,255,.42);
-  --ridima:#7B5CF7;--ridima-bg:rgba(123,92,247,.08);--ridima-glow:rgba(123,92,247,.25);
-  --green:#10B981;--green-bg:rgba(16,185,129,.08);
-  --orange:#F59E0B;--red:#EF4444;
-  --border:rgba(255,255,255,.07);--border-s:rgba(255,255,255,.12);
+  --bg:#06060E; --fg:#F0F2FF; --fg-sub:rgba(240,242,255,.5);
+  --surface:rgba(255,255,255,.04); --border:rgba(255,255,255,.08);
+  --purple:#7B5CF7; --cyan:#06B6D4; --orange:#F97316; --yellow:#EAB308;
+  --green:#10B981; --red:#EF4444;
   color-scheme:dark;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--fg);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;
-  padding-left:max(16px,env(safe-area-inset-left,0px));
-  padding-right:max(16px,env(safe-area-inset-right,0px));}
-a{color:inherit;text-decoration:none}
+html,body{background:var(--bg)}
+body{color:var(--fg);font-family:'Inter',sans-serif;font-size:14px;line-height:1.5;
+  padding:0 max(16px,env(safe-area-inset-left,0px));}
+a{text-decoration:none;color:inherit}
 
-.wrap{max-width:760px;margin:0 auto;padding-block:2rem 5rem}
+/* PAGE */
+.page{max-width:680px;margin:0 auto;padding-block:2.5rem 5rem}
 
 /* ── HERO ── */
-.hero{
-  background:linear-gradient(135deg,rgba(123,92,247,.12) 0%,rgba(6,6,14,0) 60%);
-  border:1px solid var(--border-s);border-radius:16px;
-  padding:2rem 1.75rem 1.75rem;margin-bottom:1.5rem;
+.hero{text-align:center;padding-bottom:2.5rem;position:relative}
+.hero::after{
+  content:'';display:block;
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:60px;height:3px;border-radius:2px;background:var(--purple);
+}
+.r-chip{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(123,92,247,.12);border:1px solid rgba(123,92,247,.25);
+  border-radius:999px;padding:.35rem .875rem;
+  font-size:.75rem;font-weight:600;color:var(--purple);
+  margin-bottom:1.25rem;
+}
+.r-dot{width:8px;height:8px;border-radius:50%;background:var(--purple)}
+.hero-hl{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(2rem,8vw,3.25rem);
+  font-weight:800;line-height:1.05;letter-spacing:-.03em;
+  margin-bottom:.75rem;
+}
+.hero-hl .accent{color:var(--purple)}
+.hero-sub{font-size:.9375rem;color:var(--fg-sub);margin-bottom:1.75rem}
+.hero-sub strong{color:var(--fg)}
+
+/* deadline pill */
+.deadline-pill{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.45rem 1rem;border-radius:999px;
+  font-family:'Space Mono',monospace;font-size:.75rem;font-weight:700;
+}
+.deadline-pill.warn{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);color:var(--red)}
+.deadline-pill.ok  {background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:var(--green)}
+
+/* ── BIG STAT BADGES ── */
+.badges{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;margin:2rem 0}
+.badge{
+  flex:1;min-width:140px;max-width:200px;
+  border-radius:16px;padding:1.25rem 1rem;text-align:center;
   position:relative;overflow:hidden;
 }
-.hero::before{
-  content:'';position:absolute;top:-40px;right:-40px;
-  width:220px;height:220px;border-radius:50%;
-  background:radial-gradient(circle,rgba(123,92,247,.18) 0%,transparent 70%);
-  pointer-events:none;
+.badge::before{
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:100px;height:100px;border-radius:50%;
+  background:rgba(255,255,255,.08);pointer-events:none;
 }
-.hero-top{display:flex;align-items:center;gap:.875rem;margin-bottom:1.25rem;flex-wrap:wrap}
-.r-mark{
-  width:44px;height:44px;border-radius:12px;
-  background:var(--ridima);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:800;color:#FFF;
-  flex-shrink:0;box-shadow:0 4px 20px var(--ridima-glow);
+.badge.c-purple{background:linear-gradient(135deg,#4D2FD4,#7B5CF7)}
+.badge.c-cyan  {background:linear-gradient(135deg,#0284C7,#06B6D4)}
+.badge.c-orange{background:linear-gradient(135deg,#C2410C,#F97316)}
+.badge-num{
+  font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;line-height:1;
+  color:#FFF;margin-bottom:.25rem;
 }
-.hero-title{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;letter-spacing:-.025em}
-.hero-title .ridima{color:var(--ridima)}
-.hero-sub{font-size:.8125rem;color:var(--fg-sub);display:flex;align-items:center;gap:.625rem;flex-wrap:wrap;margin-top:.25rem}
-.hero-sub .pill{
-  background:var(--surface-2);border:1px solid var(--border-s);
-  border-radius:20px;padding:.2rem .625rem;font-size:.6875rem;font-weight:600;color:var(--fg-sub);
-}
-.hero-sub .pill.active{background:var(--ridima-bg);border-color:rgba(123,92,247,.3);color:var(--ridima)}
+.badge-lbl{font-size:.6875rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.75)}
 
-/* progress */
-.prog-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem}
-.prog-label{font-family:'Syne',sans-serif;font-size:.8125rem;font-weight:700}
-.prog-frac{font-family:'Space Mono',monospace;font-size:.8125rem;font-weight:700;color:var(--ridima)}
-.track{height:6px;background:rgba(255,255,255,.07);border-radius:3px;overflow:hidden}
-.fill{height:100%;border-radius:3px;background:var(--ridima);box-shadow:0 0 10px var(--ridima-glow);
-  transition:width .6s cubic-bezier(.16,1,.3,1)}
-.fill.done{background:var(--green);box-shadow:0 0 10px rgba(16,185,129,.3)}
-
-/* ── ALERT ── */
-.alert{
-  display:flex;align-items:center;gap:.625rem;
-  padding:.75rem 1rem;border-radius:10px;margin-bottom:1.25rem;
-  font-size:.8125rem;font-weight:600;
+/* ── PROGRESS ── */
+.prog-wrap{
+  background:rgba(255,255,255,.03);border:1px solid var(--border);
+  border-radius:14px;padding:1.25rem 1.5rem;margin-bottom:2rem;
 }
-.alert.warn{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);color:var(--red)}
-.alert.ok  {background:var(--green-bg);border:1px solid rgba(16,185,129,.2);color:var(--green)}
+.prog-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.625rem}
+.prog-title{font-family:'Syne',sans-serif;font-size:.9375rem;font-weight:700}
+.prog-frac{font-family:'Space Mono',monospace;font-size:.875rem;font-weight:700;color:var(--purple)}
+.track{height:8px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
+.fill{height:100%;border-radius:4px;transition:width .6s cubic-bezier(.16,1,.3,1)}
+.fill.p{background:var(--purple);box-shadow:0 0 12px rgba(123,92,247,.4)}
+.fill.g{background:var(--green);box-shadow:0 0 12px rgba(16,185,129,.35)}
+.fill.o{background:var(--orange);box-shadow:0 0 10px rgba(249,115,22,.3)}
 
-/* ── GRID ── */
-.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:.625rem;margin-bottom:1.5rem}
-.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:.625rem;margin-bottom:1.5rem}
-@media(max-width:540px){.grid-4{grid-template-columns:1fr 1fr}}
-@media(max-width:380px){.grid-2{grid-template-columns:1fr}}
-
-.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.875rem 1rem}
-.card-label{font-size:.6875rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-sub);margin-bottom:.35rem}
-.card-val{font-family:'Space Mono',monospace;font-size:1.25rem;font-weight:700;line-height:1}
-.card-val.c-ridima{color:var(--ridima)}
-.card-val.c-green {color:var(--green)}
-.card-val.c-orange{color:var(--orange)}
-.card-val.c-red   {color:var(--red)}
-.card-sub{font-size:.75rem;color:var(--fg-sub);margin-top:.25rem}
-
-/* referral section */
-.section-head{font-family:'Syne',sans-serif;font-size:.875rem;font-weight:700;margin-bottom:.75rem}
-
-.ref-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:12px;
-  padding:1.125rem 1.25rem;
+/* ── SECTION LABEL ── */
+.sec-label{
+  font-family:'Syne',sans-serif;font-size:.6875rem;font-weight:800;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--fg-sub);
+  margin-bottom:1rem;display:flex;align-items:center;gap:.625rem;
 }
-.ref-code-row{display:flex;align-items:center;gap:.625rem;margin-bottom:1rem}
-.ref-code{
-  font-family:'Space Mono',monospace;font-size:1rem;font-weight:700;
-  color:var(--ridima);
-  background:var(--ridima-bg);border:1px solid rgba(123,92,247,.2);
-  border-radius:8px;padding:.4rem .875rem;
-}
-.ref-label{font-size:.75rem;color:var(--fg-sub)}
-.ref-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
-.ref-stat{text-align:center;padding:.625rem .5rem;background:var(--surface-2);border-radius:8px}
-.ref-stat-num{font-family:'Space Mono',monospace;font-size:1.125rem;font-weight:700;line-height:1}
-.ref-stat-num.c-green{color:var(--green)}
-.ref-stat-lbl{font-size:.6875rem;color:var(--fg-sub);margin-top:.2rem}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
-/* ── POSTS ── */
-.posts-stack{display:flex;flex-direction:column;gap:.75rem}
+/* ── POST CARDS ── */
+.posts{display:flex;flex-direction:column;gap:.875rem;margin-bottom:2rem}
+.post{border-radius:16px;overflow:hidden}
 
-.post-card{
-  background:var(--surface);border:1px solid var(--border);border-radius:12px;
-  overflow:hidden;
+.post-top{
+  padding:1rem 1.25rem .875rem;
+  display:flex;align-items:center;gap:.875rem;
 }
-.post-card-head{
-  padding:.875rem 1rem;
-  display:flex;align-items:center;gap:.75rem;
-  border-bottom:1px solid var(--border);
+.post-num-big{
+  font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;line-height:1;
+  color:rgba(255,255,255,.25);flex-shrink:0;
 }
-.post-num-badge{
-  font-family:'Space Mono',monospace;font-size:.75rem;font-weight:700;
-  color:var(--ridima);background:var(--ridima-bg);
-  border:1px solid rgba(123,92,247,.2);border-radius:6px;
-  padding:.2rem .5rem;flex-shrink:0;
-}
+.post-top-info{flex:1;min-width:0}
 .post-link{
-  flex:1;min-width:0;
-  font-size:.875rem;font-weight:500;color:var(--fg);
+  display:block;
+  font-size:.8125rem;font-weight:600;color:rgba(255,255,255,.9);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-bottom:.2rem;
 }
-.post-link:hover{color:var(--ridima)}
-.post-date{font-family:'Space Mono',monospace;font-size:.6875rem;color:var(--fg-sub);flex-shrink:0}
-.post-live{font-size:.6875rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  background:var(--green-bg);color:var(--green);border-radius:4px;padding:.15rem .4rem;flex-shrink:0}
-.post-pending{font-size:.6875rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  background:rgba(245,158,11,.08);color:var(--orange);border-radius:4px;padding:.15rem .4rem;flex-shrink:0}
+.post-link:hover{color:#FFF}
+.post-top-meta{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.post-date-tag{
+  font-family:'Space Mono',monospace;font-size:.6875rem;
+  color:rgba(255,255,255,.5);
+}
+.live-tag{
+  font-size:.625rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(255,255,255,.15);color:#FFF;
+  border-radius:4px;padding:.15rem .4rem;
+}
+.pending-tag{
+  font-size:.625rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(0,0,0,.2);color:rgba(255,255,255,.5);
+  border-radius:4px;padding:.15rem .4rem;
+}
+
+/* gradient backgrounds per post */
+.post.c-cyan   { background:linear-gradient(145deg,#083344,#0E7490) }
+.post.c-orange { background:linear-gradient(145deg,#431407,#9A3412) }
+.post.c-purple { background:linear-gradient(145deg,#1E1245,#4C1D95) }
+.post.c-yellow { background:linear-gradient(145deg,#1C1500,#78350F) }
+.post.c-green  { background:linear-gradient(145deg,#022C22,#065F46) }
 
 .post-metrics{
+  background:rgba(0,0,0,.2);
   display:grid;grid-template-columns:repeat(5,1fr);
-  padding:.75rem 1rem;gap:.5rem;
+  padding:.75rem 1.25rem;
+  border-top:1px solid rgba(255,255,255,.08);
 }
-@media(max-width:460px){.post-metrics{grid-template-columns:repeat(3,1fr)}}
-.metric{text-align:center}
-.metric-num{font-family:'Space Mono',monospace;font-size:.9375rem;font-weight:700;line-height:1}
-.metric-num.c-ridima{color:var(--ridima)}
-.metric-lbl{font-size:.625rem;text-transform:uppercase;letter-spacing:.07em;color:var(--fg-sub);margin-top:.2rem}
-.metric-dash{color:var(--border-s);font-size:1.125rem}
+@media(max-width:440px){.post-metrics{grid-template-columns:repeat(3,1fr)}}
+.metric{text-align:center;padding:.25rem 0}
+.metric-num{font-family:'Space Mono',monospace;font-size:.9375rem;font-weight:700;color:#FFF}
+.metric-lbl{font-size:.5625rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,.45);margin-top:.15rem}
 
-/* video metrics strip */
-.video-strip{
-  background:var(--surface-2);border-top:1px solid var(--border);
-  padding:.5rem 1rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+.video-bar{
+  background:rgba(0,0,0,.3);
+  display:flex;align-items:center;gap:1rem;
+  padding:.5rem 1.25rem;border-top:1px solid rgba(255,255,255,.06);
 }
-.vid-label{font-size:.6875rem;font-weight:600;color:var(--fg-sub);text-transform:uppercase;letter-spacing:.07em;margin-right:.25rem}
-.vid-stat{font-family:'Space Mono',monospace;font-size:.8125rem;font-weight:700;color:var(--fg)}
-.vid-stat span{font-size:.6875rem;color:var(--fg-sub);font-family:'Inter',sans-serif;font-weight:400;margin-left:.25rem}
+.vid-tag{font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);border-radius:3px;padding:.1rem .35rem}
+.vid-num{font-family:'Space Mono',monospace;font-size:.8125rem;font-weight:700;color:#FFF}
+.vid-num span{font-family:'Inter',sans-serif;font-size:.6875rem;color:rgba(255,255,255,.5);font-weight:400;margin-left:.25rem}
 
 /* pending slot */
-.pend-slot{
-  background:transparent;border:1px dashed var(--border-s);border-radius:12px;
-  padding:.875rem 1rem;display:flex;align-items:center;gap:.75rem;
+.pend{
+  background:rgba(255,255,255,.025);border:1px dashed rgba(255,255,255,.1);
+  border-radius:16px;padding:.875rem 1.25rem;
+  display:flex;align-items:center;gap:.875rem;
 }
-.pend-num{font-family:'Space Mono',monospace;font-size:.75rem;font-weight:700;
-  color:var(--fg-sub);min-width:36px}
-.pend-text{font-size:.8125rem;color:var(--fg-sub)}
+.pend-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;line-height:1;color:rgba(255,255,255,.1)}
+.pend-txt{font-size:.8125rem;color:var(--fg-sub)}
 
-/* totals */
-.totals-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.625rem;margin-bottom:1.5rem}
-@media(max-width:420px){.totals-grid{grid-template-columns:1fr 1fr}}
-
-/* volume */
-.vol-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.125rem 1.25rem;margin-bottom:1.5rem}
-.vol-current-row{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
-.vol-current-num{font-family:'Space Mono',monospace;font-size:1.5rem;font-weight:700;line-height:1}
-.vol-current-num.pending{color:var(--fg-sub);font-size:1rem}
-.vol-current-num.c-ridima{color:var(--ridima)}
-.vol-badge{font-size:.6875rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
-  background:rgba(245,158,11,.08);color:var(--orange);border-radius:4px;padding:.2rem .5rem}
-.vol-target{margin-bottom:.875rem}
-.vol-target:last-child{margin-bottom:0}
-.vol-target-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4rem}
-.vol-target-label{font-size:.6875rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--fg-sub)}
-.vol-target-amt{font-family:'Space Mono',monospace;font-size:.8125rem;font-weight:700}
-.vol-target-amt.soft{color:var(--orange)}
-.vol-target-amt.hard{color:var(--green)}
-.vol-pct{font-size:.6875rem;color:var(--fg-sub);margin-left:.375rem}
-.track.thin{height:5px}
-.fill.soft{background:var(--orange);box-shadow:none}
-.fill.hard{background:var(--green);box-shadow:0 0 8px rgba(16,185,129,.25)}
-
-/* footer */
-.page-footer{
-  margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--border);
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;
+/* ── REFERRAL ── */
+.ref-block{
+  background:rgba(123,92,247,.07);border:1px solid rgba(123,92,247,.18);
+  border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:2rem;
 }
-.footer-left{font-size:.75rem;color:var(--fg-sub)}
-.footer-right{font-family:'Space Mono',monospace;font-size:.6875rem;color:var(--fg-sub)}
+.ref-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.ref-code-wrap{display:flex;align-items:center;gap:.625rem}
+.ref-code{
+  font-family:'Space Mono',monospace;font-size:1.125rem;font-weight:700;color:var(--purple);
+  background:rgba(123,92,247,.12);border:1px solid rgba(123,92,247,.25);
+  border-radius:8px;padding:.35rem .875rem;
+}
+.ref-code-label{font-size:.75rem;color:var(--fg-sub)}
+.ref-earnings{font-family:'Space Mono',monospace;font-size:1.25rem;font-weight:700;color:var(--green)}
+.ref-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.ref-item{background:rgba(0,0,0,.2);border-radius:10px;padding:.75rem;text-align:center}
+.ref-item-num{font-family:'Space Mono',monospace;font-size:1.125rem;font-weight:700;line-height:1}
+.ref-item-lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-sub);margin-top:.25rem}
+.ref-note{font-size:.6875rem;color:var(--fg-sub);margin-top:.4rem}
+
+/* ── VOLUME ── */
+.vol-block{
+  background:rgba(255,255,255,.03);border:1px solid var(--border);
+  border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:2rem;
+}
+.vol-current{margin-bottom:1.25rem}
+.vol-current-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;line-height:1}
+.vol-current-num.pending{font-size:1rem;color:var(--fg-sub)}
+.vol-target-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.4rem;margin-top:.875rem}
+.vol-target-label{font-size:.6875rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--fg-sub)}
+.vol-target-amt{font-family:'Space Mono',monospace;font-size:.875rem;font-weight:700}
+.vol-target-pct{font-family:'Space Mono',monospace;font-size:.75rem;color:var(--fg-sub);margin-left:.375rem}
+
+/* ── FOOTER ── */
+.foot{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem}
+.foot-l{font-size:.75rem;color:var(--fg-sub)}
+.foot-r{font-family:'Space Mono',monospace;font-size:.6875rem;color:var(--fg-sub)}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="page" id="root"></div>
 
-<!-- ── DATA (edit this to update) ── -->
 <script>
+/* ── UPDATE DATA HERE ── */
 const C = {
-  startDate: "2026-10-22",
-  endDate:   "2026-11-21",
-  total:     10,
-  payment:   "$1,500 USD",
+  startDate:  "Oct 22, 2026",
+  endDate:    "Nov 21, 2026",
+  endIso:     "2026-11-21",
+  total:      10,
+  payment:    "$1,500 USD",
   referral: {
     code:         "sirkhaycee",
     earnings:     "₦4,500.00",
@@ -218,216 +232,206 @@ const C = {
     eligibleRefs: 3,   // traded above $100
   },
   volume: {
-    current:    null,        // to be updated — data from RDM team
-    softTarget: 10000000,    // ₦10,000,000
-    hardTarget: 20000000,    // ₦20,000,000
+    current:    null,
+    softTarget: 10000000,
+    hardTarget: 20000000,
   },
   posts: [
     {
-      num:    1,
-      date:   "Nov 7, 2026",
-      url:    "https://x.com/sirkhaycee/status/2119089995000823847",
-      impressions:   2946,
-      engagements:    36,
-      likes:          22,
-      retweets:        3,
-      replies:         3,
-      profileVisits:   6,
+      num:  1,
+      date: "Nov 7, 2026",
+      url:  "https://x.com/sirkhaycee/status/2119089995000823847",
+      impressions:  2946,
+      engagements:   36,
+      likes:         22,
+      retweets:       3,
+      replies:        3,
     },
     {
-      num:    2,
-      date:   "Nov 16, 2026",
-      url:    "https://x.com/sirkhaycee/status/2122331500607680744",
-      impressions:   3755,
-      engagements:    99,
-      likes:          49,
-      retweets:        5,
-      replies:        12,
-      profileVisits:  24,
+      num:  2,
+      date: "Nov 16, 2026",
+      url:  "https://x.com/sirkhaycee/status/2122331500607680744",
+      impressions:  3755,
+      engagements:   99,
+      likes:         49,
+      retweets:       5,
+      replies:       12,
       video: { views: 501, uniqueViews: 334 },
     },
     {
-      num:    3,
-      date:   "Nov 17, 2026",
-      url:    "https://x.com/sirkhaycee/status/2122701305449701601",
+      num:  3,
+      date: "Nov 17, 2026",
+      url:  "https://x.com/sirkhaycee/status/2122701305449701601",
     },
   ],
   updatedAt: "Nov 17, 2026",
 };
-</script>
 
-<div class="wrap" id="root"></div>
-
-<script>
+/* ── RENDER ── */
 (function(){
   const root   = document.getElementById('root');
   const posts  = C.posts;
   const done   = posts.length;
-  const pct    = Math.round((done / C.total) * 100);
-  const remaining = C.total - done;
-
-  const deadline = new Date(C.endDate + 'T23:59:59');
-  const now      = new Date();
-  const daysLeft = Math.max(0, Math.ceil((deadline - now) / 86400000));
-
+  const pct    = Math.min(100, Math.round((done / C.total) * 100));
+  const left   = C.total - done;
   const totalImp = posts.reduce((s,p) => s + (p.impressions||0), 0);
   const totalEng = posts.reduce((s,p) => s + (p.engagements||0), 0);
-  const totalVid = posts.reduce((s,p) => s + (p.video ? p.video.views : 0), 0);
+  const daysLeft = Math.max(0, Math.ceil((new Date(C.endIso+'T23:59:59') - new Date()) / 86400000));
 
-  const fmt = n => n == null ? '—' : n.toLocaleString();
-  const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const COLORS = ['c-cyan','c-orange','c-purple','c-yellow','c-green','c-cyan','c-orange','c-purple','c-yellow','c-green'];
+  const fmt  = n => n == null ? '—' : n.toLocaleString();
+  const esc  = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const fmtN = n => '₦' + n.toLocaleString('en-NG');
 
-  let html = '';
+  let h = '';
 
   /* Hero */
-  html += `
+  const deadlineClass = daysLeft <= 3 ? 'warn' : 'warn';
+  h += `
   <div class="hero">
-    <div class="hero-top">
-      <div class="r-mark">R</div>
-      <div>
-        <div class="hero-title"><span class="ridima">Ridima</span> × Sir Khaycee</div>
-        <div class="hero-sub">
-          <span>KOL Engagement · Month 1</span>
-          <span class="pill active">Active</span>
-          <span class="pill">${C.startDate} → ${C.endDate}</span>
-        </div>
-      </div>
+    <div class="r-chip"><div class="r-dot"></div>Ridima KOL — Month 1</div>
+    <div class="hero-hl">Here's what I've<br>built for <span class="accent">Ridima</span> 👇</div>
+    <div class="hero-sub">${C.startDate} → ${C.endDate} · <strong>@sirkhaycee</strong></div>
+    <div class="deadline-pill ${done>=C.total?'ok':'warn'}">
+      ${done >= C.total ? '✅ All posts delivered' : `⚠️ ${left} post${left>1?'s':''} left · ${daysLeft} day${daysLeft!==1?'s':''} to go`}
     </div>
-    <div class="prog-row">
-      <span class="prog-label">Deliverables</span>
-      <span class="prog-frac">${done} / ${C.total} posts</span>
-    </div>
-    <div class="track"><div class="fill${done>=C.total?' done':''}" style="width:${pct}%"></div></div>
   </div>`;
 
-  /* Alert */
-  if (done < C.total) {
-    const cls = daysLeft <= 3 ? 'warn' : 'warn';
-    html += `<div class="alert ${cls}">⚠️ ${remaining} post${remaining>1?'s':''} still needed · ${daysLeft} day${daysLeft!==1?'s':''} until deadline (Nov 21)</div>`;
-  } else {
-    html += `<div class="alert ok">✅ All ${C.total} posts delivered — contract complete!</div>`;
-  }
-
-  /* Campaign stats */
-  html += `<div class="grid-4">
-    <div class="card"><div class="card-label">Posts Done</div><div class="card-val c-ridima">${done}</div></div>
-    <div class="card"><div class="card-label">Remaining</div><div class="card-val${remaining>0?' c-orange':' c-green'}">${remaining}</div></div>
-    <div class="card"><div class="card-label">Days Left</div><div class="card-val${daysLeft<=3?' c-red':daysLeft<=7?' c-orange':' c-ridima'}">${daysLeft}</div></div>
-    <div class="card"><div class="card-label">Payment</div><div class="card-val c-green" style="font-size:1rem">${C.payment}</div></div>
+  /* Big badges */
+  h += `<div class="badges">
+    <div class="badge c-purple">
+      <div class="badge-num">${fmt(totalImp)}</div>
+      <div class="badge-lbl">Total Impressions</div>
+    </div>
+    <div class="badge c-cyan">
+      <div class="badge-num">${fmt(totalEng)}</div>
+      <div class="badge-lbl">Engagements</div>
+    </div>
+    <div class="badge c-orange">
+      <div class="badge-num">${C.referral.totalRefs}</div>
+      <div class="badge-lbl">Referrals</div>
+    </div>
   </div>`;
 
-  /* Referral */
-  html += `<div class="section-head">Referral Performance</div>
-  <div class="ref-card" style="margin-bottom:1.5rem">
-    <div class="ref-code-row">
-      <div class="ref-code">${esc(C.referral.code)}</div>
-      <div class="ref-label">Referral code</div>
+  /* Progress */
+  h += `<div class="prog-wrap">
+    <div class="prog-top">
+      <div class="prog-title">Post Deliverables</div>
+      <div class="prog-frac">${done} / ${C.total}</div>
     </div>
-    <div class="ref-stats">
-      <div class="ref-stat"><div class="ref-stat-num c-green">${esc(C.referral.earnings)}</div><div class="ref-stat-lbl">Earned</div></div>
-      <div class="ref-stat"><div class="ref-stat-num">${C.referral.totalRefs}</div><div class="ref-stat-lbl">Total Referrals</div></div>
-      <div class="ref-stat"><div class="ref-stat-num">${C.referral.eligibleRefs}</div><div class="ref-stat-lbl">Eligible <span style="font-size:.6rem;opacity:.7">&gt;$100 traded</span></div></div>
-    </div>
+    <div class="track"><div class="fill p" style="width:${pct}%"></div></div>
   </div>`;
 
   /* Posts */
-  html += `<div class="section-head">Submitted Posts</div><div class="posts-stack">`;
-  posts.forEach(p => {
+  h += `<div class="sec-label">Posts Delivered</div><div class="posts">`;
+  posts.forEach((p, i) => {
     const hasStats = p.impressions != null;
-    const shortUrl = p.url.replace('https://x.com/sirkhaycee/status/','x.com/sirkhaycee/');
-    html += `<div class="post-card">
-      <div class="post-card-head">
-        <div class="post-num-badge">#${String(p.num).padStart(2,'0')}</div>
-        <a class="post-link" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(shortUrl)}</a>
-        <div class="post-date">${esc(p.date)}</div>
-        <div class="${hasStats?'post-live':'post-pending'}">${hasStats?'Live':'Stats pending'}</div>
+    const shortUrl = p.url.replace('https://x.com/sirkhaycee/status/','x.com/…/');
+    h += `<div class="post ${COLORS[i]}">
+      <div class="post-top">
+        <div class="post-num-big">${String(p.num).padStart(2,'0')}</div>
+        <div class="post-top-info">
+          <a class="post-link" href="${esc(p.url)}" target="_blank" rel="noopener">${esc(shortUrl)}</a>
+          <div class="post-top-meta">
+            <span class="post-date-tag">${esc(p.date)}</span>
+            <span class="${hasStats?'live-tag':'pending-tag'}">${hasStats?'Live':'Stats Pending'}</span>
+          </div>
+        </div>
       </div>`;
     if (hasStats) {
-      html += `<div class="post-metrics">
-        <div class="metric"><div class="metric-num c-ridima">${fmt(p.impressions)}</div><div class="metric-lbl">Impressions</div></div>
+      h += `<div class="post-metrics">
+        <div class="metric"><div class="metric-num">${fmt(p.impressions)}</div><div class="metric-lbl">Impressions</div></div>
         <div class="metric"><div class="metric-num">${fmt(p.engagements)}</div><div class="metric-lbl">Engagements</div></div>
         <div class="metric"><div class="metric-num">${fmt(p.likes)}</div><div class="metric-lbl">Likes</div></div>
-        <div class="metric"><div class="metric-num">${fmt(p.retweets)}</div><div class="metric-lbl">Retweets</div></div>
+        <div class="metric"><div class="metric-num">${fmt(p.retweets)}</div><div class="metric-lbl">RTs</div></div>
         <div class="metric"><div class="metric-num">${fmt(p.replies)}</div><div class="metric-lbl">Replies</div></div>
       </div>`;
       if (p.video) {
-        html += `<div class="video-strip">
-          <span class="vid-label">Video</span>
-          <span class="vid-stat">${fmt(p.video.views)}<span>views</span></span>
-          <span class="vid-stat">${fmt(p.video.uniqueViews)}<span>unique views</span></span>
+        h += `<div class="video-bar">
+          <span class="vid-tag">VIDEO</span>
+          <span class="vid-num">${fmt(p.video.views)}<span>views</span></span>
+          <span class="vid-num">${fmt(p.video.uniqueViews)}<span>unique</span></span>
         </div>`;
       }
     } else {
-      html += `<div class="post-metrics" style="opacity:.4;pointer-events:none">
+      h += `<div class="post-metrics" style="opacity:.3">
         <div class="metric"><div class="metric-num">—</div><div class="metric-lbl">Impressions</div></div>
         <div class="metric"><div class="metric-num">—</div><div class="metric-lbl">Engagements</div></div>
         <div class="metric"><div class="metric-num">—</div><div class="metric-lbl">Likes</div></div>
-        <div class="metric"><div class="metric-num">—</div><div class="metric-lbl">Retweets</div></div>
+        <div class="metric"><div class="metric-num">—</div><div class="metric-lbl">RTs</div></div>
         <div class="metric"><div class="metric-num">—</div><div class="metric-lbl">Replies</div></div>
       </div>`;
     }
-    html += `</div>`;
+    h += `</div>`;
   });
   for (let i = done; i < C.total; i++) {
-    html += `<div class="pend-slot"><div class="pend-num">#${String(i+1).padStart(2,'0')}</div><div class="pend-text">Pending</div></div>`;
-  }
-  html += `</div>`;
-
-  /* Volume */
-  {
-    const v = C.volume;
-    const cur = v.current;
-    const hasCur = cur != null && cur > 0;
-    const softPct = hasCur ? Math.min(100, Math.round((cur / v.softTarget) * 100)) : 0;
-    const hardPct = hasCur ? Math.min(100, Math.round((cur / v.hardTarget) * 100)) : 0;
-    const fmtNaira = n => '₦' + n.toLocaleString('en-NG');
-
-    html += `<div class="section-head">Trading Volume Generated</div>
-    <div class="vol-card">
-      <div class="vol-current-row">
-        <div>
-          <div class="card-label" style="margin-bottom:.35rem">Current Volume</div>
-          <div class="vol-current-num ${hasCur ? 'c-ridima' : 'pending'}">${hasCur ? fmtNaira(cur) : 'Awaiting data from RDM'}</div>
-        </div>
-        ${!hasCur ? `<div class="vol-badge">Pending</div>` : ''}
-      </div>
-      <div class="vol-target">
-        <div class="vol-target-row">
-          <span class="vol-target-label">Soft Target</span>
-          <span><span class="vol-target-amt soft">${fmtNaira(v.softTarget)}</span><span class="vol-pct">${softPct}%</span></span>
-        </div>
-        <div class="track thin"><div class="fill soft" style="width:${softPct}%"></div></div>
-      </div>
-      <div class="vol-target" style="margin-top:.75rem">
-        <div class="vol-target-row">
-          <span class="vol-target-label">Hard Target</span>
-          <span><span class="vol-target-amt hard">${fmtNaira(v.hardTarget)}</span><span class="vol-pct">${hardPct}%</span></span>
-        </div>
-        <div class="track thin"><div class="fill hard" style="width:${hardPct}%"></div></div>
-      </div>
+    h += `<div class="pend">
+      <div class="pend-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="pend-txt">Pending</div>
     </div>`;
   }
+  h += `</div>`;
 
-  /* Totals */
-  if (totalImp > 0) {
-    html += `<div style="margin-top:1.5rem">
-    <div class="section-head">Campaign Totals</div>
-    <div class="totals-grid">
-      <div class="card"><div class="card-label">Total Reach</div><div class="card-val c-ridima">${fmt(totalImp)}</div><div class="card-sub">impressions</div></div>
-      <div class="card"><div class="card-label">Engagements</div><div class="card-val">${fmt(totalEng)}</div><div class="card-sub">all posts</div></div>
-      <div class="card"><div class="card-label">Video Views</div><div class="card-val">${totalVid>0?fmt(totalVid):'—'}</div><div class="card-sub">${totalVid>0?'total views':'—'}</div></div>
-    </div></div>`;
-  }
-
-  /* Footer */
-  html += `<div class="page-footer">
-    <div class="footer-left">RDM Technologies Ltd · Ridima Brand · @sirkhaycee · Month 1</div>
-    <div class="footer-right">Updated ${esc(C.updatedAt)}</div>
+  /* Referral */
+  h += `<div class="sec-label">Referral Performance</div>
+  <div class="ref-block">
+    <div class="ref-top">
+      <div class="ref-code-wrap">
+        <div class="ref-code">${esc(C.referral.code)}</div>
+        <div class="ref-code-label">Referral code</div>
+      </div>
+      <div class="ref-earnings">${esc(C.referral.earnings)}</div>
+    </div>
+    <div class="ref-grid">
+      <div class="ref-item">
+        <div class="ref-item-num">${C.referral.totalRefs}</div>
+        <div class="ref-item-lbl">Total Refs</div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-item-num" style="color:var(--green)">${C.referral.eligibleRefs}</div>
+        <div class="ref-item-lbl">Eligible</div>
+        <div class="ref-note">&gt;$100 traded</div>
+      </div>
+      <div class="ref-item">
+        <div class="ref-item-num" style="color:var(--orange)">${C.referral.totalRefs - C.referral.eligibleRefs}</div>
+        <div class="ref-item-lbl">Below $100</div>
+        <div class="ref-note">growing</div>
+      </div>
+    </div>
   </div>`;
 
-  root.innerHTML = html;
+  /* Volume */
+  const v = C.volume;
+  const hasCur = v.current != null && v.current > 0;
+  const softPct = hasCur ? Math.min(100, Math.round((v.current/v.softTarget)*100)) : 0;
+  const hardPct = hasCur ? Math.min(100, Math.round((v.current/v.hardTarget)*100)) : 0;
+
+  h += `<div class="sec-label">Trading Volume Generated</div>
+  <div class="vol-block">
+    <div class="vol-current">
+      <div style="font-size:.6875rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--fg-sub);margin-bottom:.4rem">Current Volume</div>
+      <div class="vol-current-num ${hasCur?'':'pending'}">${hasCur ? fmtN(v.current) : 'Awaiting data from RDM team'}</div>
+    </div>
+    <div class="vol-target-row">
+      <span class="vol-target-label">Soft Target</span>
+      <span><span class="vol-target-amt" style="color:var(--orange)">${fmtN(v.softTarget)}</span><span class="vol-target-pct">${softPct}%</span></span>
+    </div>
+    <div class="track" style="height:6px"><div class="fill o" style="width:${softPct}%"></div></div>
+    <div class="vol-target-row" style="margin-top:.75rem">
+      <span class="vol-target-label">Hard Target</span>
+      <span><span class="vol-target-amt" style="color:var(--green)">${fmtN(v.hardTarget)}</span><span class="vol-target-pct">${hardPct}%</span></span>
+    </div>
+    <div class="track" style="height:6px"><div class="fill g" style="width:${hardPct}%"></div></div>
+  </div>`;
+
+  /* Footer */
+  h += `<div class="foot">
+    <div class="foot-l">RDM Technologies Ltd · Ridima · @sirkhaycee · Month 1</div>
+    <div class="foot-r">Updated ${esc(C.updatedAt)}</div>
+  </div>`;
+
+  root.innerHTML = h;
 })();
 </script>
-</div>
 </body>
 </html>
