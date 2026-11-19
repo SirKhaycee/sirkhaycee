@@ -197,13 +197,16 @@ const C = {
   endIso:     "2026-11-21",
   total:      10,
   referral: {
-    code:         "sirkhaycee",
-    earnings:     "₦4,500.00",
-    totalRefs:    101,
-    eligibleRefs: 3,
+    code:          "sirkhaycee",
+    earnings:      "₦6,429.37",
+    totalRefs:     102,
+    eligibleRefs:  3,
+    transacting:   9,
+    trading:       4,
+    conversion:    "8.8%",
   },
   volume: {
-    current:    null,
+    current:    422324,
     softTarget: 10000000,
     hardTarget: 20000000,
   },
@@ -268,13 +271,16 @@ const C = {
   const totalVidViews = posts.reduce((s,p)=>s+(p.video?p.video.views:0),0);
 
   /* Results grid */
+  const r=C.referral;
   const results=[
     {num:fmt(totalImp),label:'Total impressions',desc:'Combined reach across all live posts',cls:'a1'},
     {num:fmt(totalEng),label:'Total engagements',desc:'Likes, retweets and replies',cls:'a2'},
-    {num:String(C.referral.totalRefs),label:'Total referrals',desc:`via code "${esc(C.referral.code)}"`,cls:'a3'},
-    {num:String(C.referral.eligibleRefs),label:'Eligible referrals',desc:'Referred users who traded >$100',cls:'a4'},
-    {num:C.referral.earnings,label:'Referral earnings',desc:'Earnings generated so far',cls:'a5'},
-    {num:totalVidViews?fmt(totalVidViews):'—',label:'Video views',desc:'Total views on video content',cls:'a6'},
+    {num:String(r.totalRefs),label:'Total referrals',desc:`via code "${esc(r.code)}"`,cls:'a3'},
+    {num:String(r.transacting),label:'Transacting',desc:'Referees actively using the app',cls:'a4'},
+    {num:String(r.eligibleRefs),label:'Qualified (>$100)',desc:'Referees who traded above $100',cls:'a5'},
+    {num:r.conversion,label:'Conversion rate',desc:'Share of sign-ups that transacted',cls:'a6'},
+    {num:r.earnings,label:'Referral earnings',desc:'Total earned via referral program',cls:'a1'},
+    {num:totalVidViews?fmt(totalVidViews):'—',label:'Video views',desc:'Total views on video content',cls:'a2'},
   ];
   document.getElementById('resultsGrid').innerHTML=results.map(r=>`
     <div class="result-card ${r.cls}">
